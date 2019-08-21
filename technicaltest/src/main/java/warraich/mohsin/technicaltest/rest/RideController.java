@@ -14,19 +14,19 @@ import warraich.mohsin.technicaltest.util.*;
 @RestController
 public class RideController {
 	
-SearchResponse searchResponse = new SearchResponse();
+	Output searchResponse = new Output();
 	
-	@RequestMapping("/")
+	@RequestMapping("/query")
 	public @ResponseBody String getAllTopics(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff, @RequestParam("passengers") String numberofPassengers) {
-		SearchEngine searchEngine = new SearchEngine();
-        searchEngine.addSupplier(Utilities.DAVE_API);
-        searchEngine.addSupplier(Utilities.ERIC_API);
-        searchEngine.addSupplier(Utilities.JEFF_API);
+		Search searchEngine = new Search();
+        searchEngine.addSupplier(Validate.DAVE_API);
+        searchEngine.addSupplier(Validate.ERIC_API);
+        searchEngine.addSupplier(Validate.JEFF_API);
         
         Location pickUpLocation = extractLocation(pickup);
         Location dropOffLocation = extractLocation(dropoff);
         
-        SearchResponse searchResponse;
+        Output searchResponse;
         
         searchResponse = searchEngine.newSearch(pickUpLocation, dropOffLocation,Integer.parseInt(numberofPassengers));
         
@@ -35,22 +35,12 @@ SearchResponse searchResponse = new SearchResponse();
         
         
 	}
-	
-	 private static boolean checkPassengers(String numberOfPassengers) {
 
-	        if (numberOfPassengers == null || Utilities.isPositiveInteger(numberOfPassengers)) {
-	            return true;
-	        }
-
-	        return false;
-	 }
-
-
-	 private static Location extractLocation(String location) {
+	 static Location extractLocation(String location) {
 
 	        String[] coordinates = location.split(",");
 
-	        if (!(Utilities.isDouble(coordinates[0]) && Utilities.isDouble(coordinates[1]))) {
+	        if (!(Validate.isDouble(coordinates[0]) && Validate.isDouble(coordinates[1]))) {
 	            return null;
 	        }
 

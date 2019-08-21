@@ -2,7 +2,7 @@ package warraich.mohsin.technicaltest.models;
 
 import java.util.ArrayList;
 
-public class APIResponse {
+public class Response {
 	
 	private String supplier_id;
 	

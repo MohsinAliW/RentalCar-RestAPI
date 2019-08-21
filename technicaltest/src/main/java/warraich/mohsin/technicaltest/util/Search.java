@@ -14,60 +14,62 @@ import com.google.gson.GsonBuilder;
 
 import warraich.mohsin.technicaltest.models.*;
 
-public class SearchEngine {
+public class Search {
 	
-	private static final int timeoutMilliseconds = 2000;
+	private static final int time = 2000;
 
     private List<String> supplierEndPoints = new ArrayList<>();
 
 
-    public SearchEngine() {}
+    public Search() {}
 
-    public SearchResponse newSearch(Location pickUp, Location dropOff, int numberOfPassengers) {
+    public Output newSearch(Location pickUp, Location dropOff, int passengers) {
 
-        SearchResponse searchResponse = new SearchResponse();
+        Output search = new Output();
 
         for(String supplierEndPoint: supplierEndPoints) {
 
             URL url = buildUrl(supplierEndPoint, pickUp, dropOff);
 
             try {
-                APIResponse response = makeApiCall(url);
+                Response response = makeApiCall(url);
 
-                if (response == null) continue;
-
-                for (Ride options: response.getOptions())  {
-                    Ride newRide = new Ride(options.getcar_type(), options.getPrice(), response.getSupplierId());
-                    searchResponse.getResultsList().add(newRide);
+                if (response != null) {
+                	for (Ride options: response.getOptions())  {
+                        Ride newRide = new Ride(options.getcar_type(), options.getPrice(), response.getSupplierId());
+                        search.getResultsList().add(newRide);
+                    }
                 }
+           
             }
             catch (java.net.SocketTimeoutException e)
             {
                 System.out.println("Connection timeout.");
                 continue;
-            } catch (IOException e) {
+            } 
+            catch (IOException e) {
                 System.out.println("Could not read the response.");
                 continue;
             }
 
         }
 
-        searchResponse.removeIrrelevantResults(numberOfPassengers);
-        searchResponse.sortPriceDescending();
+        search.removeSmallRides(passengers);
+        search.sortRides();
 
-        return searchResponse;
+        return search;
     }
 
-    public SearchResponse newSearch(Location pickUp, Location dropOff) {
+    public Output newSearch(Location pickUp, Location dropOff) {
         return this.newSearch(pickUp, dropOff, 0);
     }
 
 
-    public APIResponse makeApiCall(URL url) throws IOException {
+    public Response makeApiCall(URL url) throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setConnectTimeout(timeoutMilliseconds);
+        connection.setConnectTimeout(time);
 
 
         int responseCode = connection.getResponseCode();
@@ -83,15 +85,13 @@ public class SearchEngine {
         return deserializeResponse(responseString);
     }
 
-    private APIResponse deserializeResponse(String responseString) {
+    private Response deserializeResponse(String responseString) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
 
         Gson gson = builder.create();
-        
-        
 
-        return  gson.fromJson(responseString, APIResponse.class);
+        return  gson.fromJson(responseString, Response.class);
     }
 
 
@@ -113,30 +113,29 @@ public class SearchEngine {
 
     public URL buildUrl(String supplierEndPoint, Location pickUp, Location dropOff)
     {
-        StringBuilder stringBuilder = new StringBuilder(supplierEndPoint);
+        StringBuilder url = new StringBuilder(supplierEndPoint);
 
-        stringBuilder.append("?pickup=");
-        stringBuilder.append(pickUp.getLatitude());
-        stringBuilder.append(",");
-        stringBuilder.append(pickUp.getLongitude());
+        url.append("?pickup=");
+        url.append(pickUp.getLatitude());
+        url.append(",");
+        url.append(pickUp.getLongitude());
 
-        stringBuilder.append("&");
+        url.append("&");
 
-        stringBuilder.append("dropoff=");
-        stringBuilder.append(dropOff.getLatitude());
-        stringBuilder.append(",");
-        stringBuilder.append(dropOff.getLongitude());
+        url.append("dropoff=");
+        url.append(dropOff.getLatitude());
+        url.append(",");
+        url.append(dropOff.getLongitude());
 
         try {
-            return new URL(stringBuilder.toString());
+            return new URL(url.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
             System.out.println("Could not build URL.");
-        }
-
-        return null;
+            
+            return null;
+        }    
     }
-
 
     public void addSupplier(String endPoint) {
         supplierEndPoints.add(endPoint);

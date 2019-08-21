@@ -7,11 +7,11 @@ import java.util.Map;
 
 import warraich.mohsin.technicaltest.models.Ride;
 
-public class SearchResponse {
+public class Output {
 	
 private List<Ride> resultsList;
 	
-	public SearchResponse() {
+	public Output() {
         resultsList = new ArrayList<>();
     }
 	
@@ -24,33 +24,25 @@ private List<Ride> resultsList;
         }
 
         for (Ride ride : resultsList) {
-            System.out.println(ride.getcar_type() + " --- " + ride.getPrice());
+            System.out.println(ride.getcar_type() + " - " + ride.getPrice());
         }
 	}
-	
-	public List<Ride> returnList() {
-		return resultsList;
-	}
-    
 	
 	public void printResultsWhenAllSuppliers() {
-
-        for (Map.Entry<String, Integer> entry : Utilities.maxPassengersOf.entrySet())
+        for (Map.Entry<String, Integer> entry : Validate.maximumPassengers.entrySet())
         {
             Ride cheapest = getCheapest(entry.getKey());
-
             if (cheapest != null ) {
-                System.out.println(cheapest.getcar_type() + " ----- " + cheapest.getSupplier() + " ---- " + cheapest.getPrice());
+                System.out.println(cheapest.getcar_type() + " - " + cheapest.getSupplier() + " - " + cheapest.getPrice());
             }
         }
-
     }
 	
 	public List<Ride> getCheapestRides() {
 
         List<Ride> cheapestRides = new ArrayList<>();
 
-        for (Map.Entry<String, Integer> entry : Utilities.maxPassengersOf.entrySet())
+        for (Map.Entry<String, Integer> entry : Validate.maximumPassengers.entrySet())
         {
             Ride cheapest = getCheapest(entry.getKey());
 
@@ -58,9 +50,7 @@ private List<Ride> resultsList;
                 cheapestRides.add(cheapest);
             }
         }
-
         return cheapestRides;
-
     }
 	
 	public Ride getCheapest(String car_type) {
@@ -74,27 +64,20 @@ private List<Ride> resultsList;
                 minPrice = result.getPrice();
                 cheapestResult = result;
             }
-
         }
         return cheapestResult;
     }
-
 	
-	public void sortPriceDescending() {
+	public void sortRides() {
         resultsList.sort((o1, o2) -> (o2.getPrice() - o1.getPrice()) > 0 ? 1 : -1);
     }
 	
-	public void removeIrrelevantResults(int numberOfPassengers) {
-	     resultsList.removeIf(o -> numberOfPassengers > Utilities.maxPassengersOf.get(o.getcar_type()));
+	public void removeSmallRides(int numberOfPassengers) {
+	     resultsList.removeIf(t -> numberOfPassengers > Validate.maximumPassengers.get(t.getcar_type()));
 	}
 	 
 	public List<Ride> getResultsList() {
 	     return resultsList;
 	}
 	
-
-	public void setResultsList(List<Ride> resultsList) {
-	    this.resultsList = resultsList; 
-	}
-
 }
