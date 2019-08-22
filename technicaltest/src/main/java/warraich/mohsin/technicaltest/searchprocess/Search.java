@@ -1,4 +1,4 @@
-package warraich.mohsin.technicaltest.util;
+package warraich.mohsin.technicaltest.searchprocess;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class Search {
 	
 	private static final int time = 2000;
 
-    private List<String> supplierEndPoints = new ArrayList<>();
+    private List<String> suppliers = new ArrayList<>();
 
 
     public Search() {}
@@ -27,9 +27,9 @@ public class Search {
 
         Output search = new Output();
 
-        for(String supplierEndPoint: supplierEndPoints) {
+        for(String supplier: suppliers) {
 
-            URL url = buildUrl(supplierEndPoint, pickUp, dropOff);
+            URL url = buildUrl(supplier, pickUp, dropOff);
 
             try {
                 Response response = makeApiCall(url);
@@ -75,8 +75,7 @@ public class Search {
         int responseCode = connection.getResponseCode();
 
         if (responseCode != 200) {
-            System.out.println("Response code was " + responseCode + " for " + url.toString());
-            System.out.println("Skipped this supplier");
+            System.out.println("Skipped this supplier due to response code: " + responseCode);
             return null;
         }
 
@@ -111,9 +110,9 @@ public class Search {
     }
 
 
-    public URL buildUrl(String supplierEndPoint, Location pickUp, Location dropOff)
+    public URL buildUrl(String supplier, Location pickUp, Location dropOff)
     {
-        StringBuilder url = new StringBuilder(supplierEndPoint);
+        StringBuilder url = new StringBuilder(supplier);
 
         url.append("?pickup=");
         url.append(pickUp.getLatitude());
@@ -138,7 +137,7 @@ public class Search {
     }
 
     public void addSupplier(String endPoint) {
-        supplierEndPoints.add(endPoint);
+        suppliers.add(endPoint);
     }
 
 }

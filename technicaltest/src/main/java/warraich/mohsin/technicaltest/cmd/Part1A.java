@@ -1,7 +1,9 @@
 package warraich.mohsin.technicaltest.cmd;
 
-import warraich.mohsin.technicaltest.util.*;
 import warraich.mohsin.technicaltest.models.*;
+import warraich.mohsin.technicaltest.searchprocess.Output;
+import warraich.mohsin.technicaltest.searchprocess.Search;
+import warraich.mohsin.technicaltest.searchprocess.Validate;
 
 
 public class Part1A {
@@ -11,7 +13,7 @@ public static void main(String[] args) {
 		Validate.validateArguments(args);
 		
 		Search searchEngine = new Search();
-        searchEngine.addSupplier(Validate.DAVE_API);
+        searchEngine.addSupplier(Validate.DAVE);
         
 
         Location pickUp = new Location(Double.parseDouble(args[0]), Double.parseDouble(args[1]));

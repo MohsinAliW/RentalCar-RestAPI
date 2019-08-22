@@ -1,13 +1,13 @@
-package warraich.mohsin.technicaltest.util;
+package warraich.mohsin.technicaltest.searchprocess;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Validate {
 	
-	public static final String DAVE_API = "https://techtest.rideways.com/dave";
-    public static final String ERIC_API = "https://techtest.rideways.com/eric";
-    public static final String JEFF_API = "https://techtest.rideways.com/jeff";
+	public static final String DAVE = "https://techtest.rideways.com/dave";
+    public static final String ERIC = "https://techtest.rideways.com/eric";
+    public static final String JEFF = "https://techtest.rideways.com/jeff";
     public static final Map<String, Integer> maximumPassengers = new HashMap<>();
 
     static {

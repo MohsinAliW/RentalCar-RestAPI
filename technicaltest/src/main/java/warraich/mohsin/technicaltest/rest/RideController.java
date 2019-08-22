@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import warraich.mohsin.technicaltest.models.*;
-import warraich.mohsin.technicaltest.util.*;
+import warraich.mohsin.technicaltest.searchprocess.Output;
+import warraich.mohsin.technicaltest.searchprocess.Search;
+import warraich.mohsin.technicaltest.searchprocess.Validate;
 
 
 @RestController
@@ -17,18 +19,28 @@ public class RideController {
 	Output searchResponse = new Output();
 	
 	@RequestMapping("/query")
-	public @ResponseBody String getAllTopics(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff, @RequestParam("passengers") String numberofPassengers) {
+	public @ResponseBody String getAllTopics(@RequestParam("pickup") String pickup, @RequestParam("dropoff") String dropoff, @RequestParam("passengers") String passengers) {
 		Search searchEngine = new Search();
-        searchEngine.addSupplier(Validate.DAVE_API);
-        searchEngine.addSupplier(Validate.ERIC_API);
-        searchEngine.addSupplier(Validate.JEFF_API);
+        searchEngine.addSupplier(Validate.DAVE);
+        searchEngine.addSupplier(Validate.ERIC);
+        searchEngine.addSupplier(Validate.JEFF);
         
-        Location pickUpLocation = extractLocation(pickup);
-        Location dropOffLocation = extractLocation(dropoff);
+        Location pickupLocation = extractLocation(pickup);
+        Location dropoffLocation = extractLocation(dropoff);
+        
+        if (pickupLocation == null) {
+            return "{\"message\":\"'pickupLocation' parameter has been entered incorrectly. Example of correct input: 2.13,2.79\"}";
+        }
+        
+        if (dropoffLocation == null) {
+            return "{\"message\":\"'dropoffLocation' parameter has been entered incorrectly. Example of correct input: 2.13,2.79\"}";
+        }
+        
+        
         
         Output searchResponse;
         
-        searchResponse = searchEngine.newSearch(pickUpLocation, dropOffLocation,Integer.parseInt(numberofPassengers));
+        searchResponse = searchEngine.newSearch(pickupLocation, dropoffLocation,Integer.parseInt(passengers));
         
         return new Gson().toJson(searchResponse.getCheapestRides());
         

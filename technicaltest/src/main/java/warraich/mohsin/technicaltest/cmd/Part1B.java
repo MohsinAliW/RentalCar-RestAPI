@@ -1,7 +1,9 @@
 package warraich.mohsin.technicaltest.cmd;
 
 import warraich.mohsin.technicaltest.models.*;
-import warraich.mohsin.technicaltest.util.*;
+import warraich.mohsin.technicaltest.searchprocess.Output;
+import warraich.mohsin.technicaltest.searchprocess.Search;
+import warraich.mohsin.technicaltest.searchprocess.Validate;
 
 public class Part1B {
 
@@ -10,9 +12,9 @@ public class Part1B {
 		Validate.validateArguments(args);
 
         Search searchEngine = new Search();
-        searchEngine.addSupplier(Validate.DAVE_API);
-        searchEngine.addSupplier(Validate.ERIC_API);
-        searchEngine.addSupplier(Validate.JEFF_API);
+        searchEngine.addSupplier(Validate.DAVE);
+        searchEngine.addSupplier(Validate.ERIC);
+        searchEngine.addSupplier(Validate.JEFF);
 
         Location pickUp = new Location(Double.parseDouble(args[0]), Double.parseDouble(args[1]));
         Location dropOff = new Location(Double.parseDouble(args[2]), Double.parseDouble(args[3]));

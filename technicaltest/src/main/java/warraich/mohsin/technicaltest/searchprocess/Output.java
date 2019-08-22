@@ -1,4 +1,4 @@
-package warraich.mohsin.technicaltest.util;
+package warraich.mohsin.technicaltest.searchprocess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,7 @@ private List<Ride> resultsList;
 	public void printResultsWhenSingleSupplier() {
 
         if (resultsList.size() == 0) {
-            System.out.println("There are no results to display.");
-            System.out.println("This might be because the server failed to give a valid response");
-            System.out.println("Rerun the program to try again.");
+            System.out.println("No results to display, please try again.");
         }
 
         for (Ride ride : resultsList) {
