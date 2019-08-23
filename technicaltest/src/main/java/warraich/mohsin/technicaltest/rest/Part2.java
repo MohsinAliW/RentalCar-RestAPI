@@ -1,13 +1,16 @@
-package warraich.mohsin.technicaltest;
+package warraich.mohsin.technicaltest.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Implementation of Task 2
+ */
 @SpringBootApplication
-public class TechnicaltestApplication {
+public class Part2 {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TechnicaltestApplication.class, args);
+		SpringApplication.run(Part2.class, args);
 	}
 
 }
