@@ -3,7 +3,8 @@ package warraich.mohsin.technicaltest.models;
 public class Location {
 	
 	/**
-	 * Class to create Location object
+	 * Model class to create Location object that contains information regarding
+	 *  both the latitude and longitude of a location
 	 */
 	private double longitude;
 	private double latitude;

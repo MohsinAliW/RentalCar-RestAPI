@@ -5,6 +5,9 @@ import warraich.mohsin.technicaltest.searchprocess.Output;
 import warraich.mohsin.technicaltest.searchprocess.Search;
 import warraich.mohsin.technicaltest.searchprocess.Validate;
 
+/**
+ * Implementation for task 1B
+ */
 public class Part1B {
 
 	public static void main(String[] args) {

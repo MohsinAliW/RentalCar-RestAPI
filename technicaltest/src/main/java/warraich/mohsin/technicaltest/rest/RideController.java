@@ -12,7 +12,9 @@ import warraich.mohsin.technicaltest.searchprocess.Output;
 import warraich.mohsin.technicaltest.searchprocess.Search;
 import warraich.mohsin.technicaltest.searchprocess.Validate;
 
-
+/**
+ * Controller class for Rest API
+ */
 @RestController
 public class RideController {
 	
@@ -48,6 +50,11 @@ public class RideController {
         
 	}
 
+	/**
+	 * Splits a location into it's latitude and longitude
+	 * @param location Location to be split
+	 * @return Latitude and longitude for location
+	 */
 	 static Location extractLocation(String location) {
 
 	        String[] coordinates = location.split(",");
@@ -58,5 +65,7 @@ public class RideController {
 
 	        return new Location(Double.parseDouble(coordinates[0]),Double.parseDouble(coordinates[1]));
 	 }
+	 
+	 
 
 }

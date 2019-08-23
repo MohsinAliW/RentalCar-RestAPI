@@ -3,13 +3,20 @@ package warraich.mohsin.technicaltest.searchprocess;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Contains methods needed to validate a request by making sure that data has been entered correctly
+ */
 public class Validate {
 	
 	public static final String DAVE = "https://techtest.rideways.com/dave";
     public static final String ERIC = "https://techtest.rideways.com/eric";
     public static final String JEFF = "https://techtest.rideways.com/jeff";
+    
+    
+  //Contains name and maximum passengers for each type of car
     public static final Map<String, Integer> maximumPassengers = new HashMap<>();
 
+    //Add the car types to maximumPassengers
     static {
         maximumPassengers.put("STANDARD", 4);
         maximumPassengers.put("EXECUTIVE", 4);
@@ -19,6 +26,13 @@ public class Validate {
         maximumPassengers.put("MINIBUS", 16);
     }
     
+    
+    /**
+     * 
+     * @param args The command line arguments, containing the pickup and dropoff locations
+     * 				and possibly the number of passengers
+     * @return		return true if the input is valid
+     */
     public static boolean validateArguments(String[] args) {
 
         // check number of arguments.
@@ -27,13 +41,13 @@ public class Validate {
             return  false;
         }
 
-        // check geolocations.
+        // check locations to make sure they are doubles
         if (!(isDouble(args[0]) && isDouble(args[1]) && isDouble(args[2]) && isDouble(args[3]))) {
         	printHelpMessage();
             return false;
         }
 
-        // check number of passengers
+        // check if number of passengers is a positive integer
         if (args.length == 5 && !isPositive(args[4])) {
         	printHelpMessage();
             return false;
@@ -42,6 +56,7 @@ public class Validate {
         return true;
     }
 
+    //Check if value is positive
     public static boolean isPositive(String str) {
         try {
             Integer number = Integer.parseInt(str);
@@ -51,6 +66,7 @@ public class Validate {
         }
     }
 
+    //Check if value is a double
     public static boolean isDouble(String str) {
         try {
             Double.parseDouble(str);

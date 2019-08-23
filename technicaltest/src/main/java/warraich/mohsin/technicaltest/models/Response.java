@@ -2,6 +2,9 @@ package warraich.mohsin.technicaltest.models;
 
 import java.util.ArrayList;
 
+/**
+ * Model class that contains the data types included in the API response.
+ */
 public class Response {
 	
 	private String supplier_id;

@@ -4,6 +4,9 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Error Controller Class to handle invalid arguments and URLs
+ */
 @RestController
 public class RestErrorController implements ErrorController{
 

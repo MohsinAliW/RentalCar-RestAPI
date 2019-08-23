@@ -14,6 +14,9 @@ import com.google.gson.GsonBuilder;
 
 import warraich.mohsin.technicaltest.models.*;
 
+/**
+ * Connects to the API and processes the request
+ */
 public class Search {
 	
 	private static final int time = 2000;
@@ -23,6 +26,13 @@ public class Search {
 
     public Search() {}
 
+    /**
+     * Processes the API call
+     * @param pickUp pick up location
+     * @param dropOff drop off location
+     * @param passengers number of passengers
+     * @return list of results after calling Output class
+     */
     public Output newSearch(Location pickUp, Location dropOff, int passengers) {
 
         Output search = new Output();
@@ -60,11 +70,12 @@ public class Search {
         return search;
     }
 
+ // newSearch but if number of passengers is not given
     public Output newSearch(Location pickUp, Location dropOff) {
         return this.newSearch(pickUp, dropOff, 0);
     }
 
-
+    //Connects to the API
     public Response makeApiCall(URL url) throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -84,6 +95,11 @@ public class Search {
         return deserializeResponse(responseString);
     }
 
+    /**
+     * Converts a string to Response object
+     * @param responseString String to convert
+     * @return Converted String, now an object
+     */
     private Response deserializeResponse(String responseString) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

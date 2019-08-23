@@ -7,14 +7,20 @@ import java.util.Map;
 
 import warraich.mohsin.technicaltest.models.Ride;
 
+
+/**
+ * Returns the list of results
+ */
 public class Output {
 	
-private List<Ride> resultsList;
+private static List<Ride> resultsList;
 	
+
 	public Output() {
         resultsList = new ArrayList<>();
     }
 	
+	//Return the results when only DAVE API is used
 	public void printResultsWhenSingleSupplier() {
 
         if (resultsList.size() == 0) {
@@ -26,6 +32,7 @@ private List<Ride> resultsList;
         }
 	}
 	
+	//Return results when all three API's are used
 	public void printResultsWhenAllSuppliers() {
         for (Map.Entry<String, Integer> entry : Validate.maximumPassengers.entrySet())
         {
@@ -51,7 +58,8 @@ private List<Ride> resultsList;
         return cheapestRides;
     }
 	
-	public Ride getCheapest(String car_type) {
+	//Finds the cheapest supplier for each type of car
+	public static Ride getCheapest(String car_type) {
 
         long minPrice = 99999999;
         Ride cheapestResult = null;
@@ -66,10 +74,12 @@ private List<Ride> resultsList;
         return cheapestResult;
     }
 	
+	//Sort the rides in decreasing order
 	public void sortRides() {
         resultsList.sort((o1, o2) -> (o2.getPrice() - o1.getPrice()) > 0 ? 1 : -1);
     }
 	
+	//Remove car types that do not contain enough room for passengers from results list
 	public void removeSmallRides(int numberOfPassengers) {
 	     resultsList.removeIf(t -> numberOfPassengers > Validate.maximumPassengers.get(t.getcar_type()));
 	}

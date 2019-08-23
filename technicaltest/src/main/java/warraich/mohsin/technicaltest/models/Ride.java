@@ -1,5 +1,10 @@
 package warraich.mohsin.technicaltest.models;
 
+
+/**
+ *Model class that creates Ride object which contains information regarding 
+ * the car type, the price and the supplier of a ride
+ */
 public class Ride {
 	
 	private String car_type;
