@@ -53,4 +53,4 @@ Replace [passengers] with the desired number of passengers. Replace with 0 if yo
 E.g:
 ```http://localhost:8080/query?pickup=2.2,1.3&dropoff=1.1,2.1&passengers=5```
 
-##### NOTE: If the server does not start, then please use an IDE
+##### NOTE: If the server does not start, then please use an IDE to start the server
