@@ -1,5 +1,4 @@
-# BookingGo-Technical-Test
- Technical Test implementation for BookingGo
+# RestAPI
 
 ## Requirements
 Java - 1.8.0
