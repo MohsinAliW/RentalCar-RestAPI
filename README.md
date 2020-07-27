@@ -1,5 +1,5 @@
 # RestAPI
-A car rental search and fulfillment engine and REST API that obtains data from suppliers, aggregates this data and presents it in a format which allows users to choose the best option for them. 
+A car rental search and fulfillment engine that obtains data from suppliers from a RestAPI, aggregates this data and presents it in a format which allows users to choose the best option for them. 
 
 ## Requirements
 Java - 1.8.0
